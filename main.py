@@ -8,11 +8,20 @@ def start_screen(stdscr):       # Creating the start screen for the game
     stdscr.refresh()
     stdscr.getkey()     # To get input from the user, we use it here so that early on if we run it then it will print 'Hello' and then instantly close, now it has to wait for user input before closing
 
+def wpm_test(stdscr):       # This is going to be our game concept where we get the user to type our given sentance
+    target_text = "random"
+    current_text = []
+    stdscr.clear()
+    stdscr.addstr(target_text)
+    stdscr.refresh()
+    stdscr.getkey()
+
 def main(stdscr):       # The parameter 'stdscr' is the standard output which will put a screen over the terminal which will allow us to write on to it
     curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLACK)
 
     start_screen(stdscr)
+    wpm_test(stdscr)
 
 wrapper(main)
