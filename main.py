@@ -11,10 +11,23 @@ def start_screen(stdscr):       # Creating the start screen for the game
 def wpm_test(stdscr):       # This is going to be our game concept where we get the user to type our given sentance
     target_text = "random"
     current_text = []
-    stdscr.clear()
-    stdscr.addstr(target_text)
-    stdscr.refresh()
-    stdscr.getkey()
+
+    while True:     # Here we are saying that while the user is typing, append(add) that key onto the screen using the color pair stated
+        stdscr.clear()      # This clear method is needed here because otherwise all the perious data we had on screen would be duplicated over and over
+        stdscr.addstr(target_text)
+    
+        for char in current_text:
+            stdscr.addstr(char, curses.color_pair(1))
+
+        stdscr.refresh()
+
+        key = stdscr.getkey()
+
+        if ord(key) == 27:      # Making sure the user can exit the program so, if the key 'escape'(27 is its ASCII representation) is pressed then break out of the loop
+            break
+
+        current_text.append(key)
+
 
 def main(stdscr):       # The parameter 'stdscr' is the standard output which will put a screen over the terminal which will allow us to write on to it
     curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
