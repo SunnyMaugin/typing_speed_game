@@ -8,25 +8,30 @@ def start_screen(stdscr):       # Creating the start screen for the game
     stdscr.refresh()
     stdscr.getkey()     # To get input from the user, we use it here so that early on if we run it then it will print 'Hello' and then instantly close, now it has to wait for user input before closing
 
+def display_text(stdscr, target, current, wpm=0):
+        stdscr.addstr(target)
+    
+        for i, char in enumerate(current):       # This is going to get each element in the list as well as its position then overlay it with the target text, we are also setting our current text to green
+            stdscr.addstr(0, i, char, curses.color_pair(1))
+
 def wpm_test(stdscr):       # This is going to be our game concept where we get the user to type our given sentance
-    target_text = "random"
+    target_text = "This is the test run for the game please try it out!"
     current_text = []
 
     while True:     # Here we are saying that while the user is typing, append(add) that key onto the screen using the color pair stated
         stdscr.clear()      # This clear method is needed here because otherwise all the perious data we had on screen would be duplicated over and over
-        stdscr.addstr(target_text)
-    
-        for char in current_text:
-            stdscr.addstr(char, curses.color_pair(1))
-
+        display_text(stdscr, target_text, current_text)
         stdscr.refresh()
 
         key = stdscr.getkey()
 
         if ord(key) == 27:      # Making sure the user can exit the program so, if the key 'escape'(27 is its ASCII representation) is pressed then break out of the loop
             break
-
-        current_text.append(key)
+        if key in ("KEY_BACKSPACE", "\b", "\x7f"):      # If backspace is clicked by the user then remove a charater from the list, we do this because before we were entering ACTUAL backspace not its use/purpose
+            if len(current_text) > 0:
+                current_text.pop()
+        else:
+            current_text.append(key)
 
 
 def main(stdscr):       # The parameter 'stdscr' is the standard output which will put a screen over the terminal which will allow us to write on to it
