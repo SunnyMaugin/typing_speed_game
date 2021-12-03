@@ -7,7 +7,6 @@ def start_screen(stdscr):       # Creating the start screen for the game
     stdscr.clear()      # To remove all the default writing from the terminal
     stdscr.addstr("Welcome to the Typing Speed Game!")      # Pretty much a print statement that will print a default message onto the terminal, with the pair colour
     stdscr.addstr("\nPress any key to start...")
-    stdscr.addstr("\n\n\nUse [ESC] to exit at any time")
     stdscr.refresh()
     stdscr.getkey()     # To get input from the user, we use it here so that early on if we run it then it will print 'Hello' and then instantly close, now it has to wait for user input before closing
 
@@ -69,7 +68,7 @@ def main(stdscr):       # The parameter 'stdscr' is the standard output which wi
     while True:
         wpm_test(stdscr)
 
-        stdscr.addstr("You completed the text! Press any key play again or [ESC] to exit")
+        stdscr.addstr(2, 0, "You completed the text! Press any key play again or [ESC] to exit")
         key = stdscr.getkey()
         if ord(key) == 27:
             break
