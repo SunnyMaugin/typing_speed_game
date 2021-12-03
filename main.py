@@ -36,6 +36,10 @@ def wpm_test(stdscr):       # This is going to be our game concept where we get 
         display_text(stdscr, target_text, current_text, wpm)
         stdscr.refresh()
 
+        if "".join(current_text) == target_text:
+            stdscr.nodelay(False)
+            break
+
         try:        # To make sure this line will not give us an error when the user does not enter a key
             key = stdscr.getkey()
         except:
@@ -56,6 +60,12 @@ def main(stdscr):       # The parameter 'stdscr' is the standard output which wi
     curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLACK)
 
     start_screen(stdscr)
-    wpm_test(stdscr)
+    while True:
+        wpm_test(stdscr)
+
+        stdscr.addstr("You completed the text! Press any key play again or [ESC] to exit")
+        key = stdscr.getkey()
+        if ord(key) == 27:
+            break
 
 wrapper(main)
