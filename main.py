@@ -1,6 +1,7 @@
 import curses       # Used to style the terminal which will allow us to make the game more interactive
 from curses import wrapper      # Makes sure that everything we do on the terminal will be back to the way it was after our program is over
 import time
+import random
 
 def start_screen(stdscr):       # Creating the start screen for the game
     stdscr.clear()      # To remove all the default writing from the terminal
@@ -21,8 +22,13 @@ def display_text(stdscr, target, current, wpm=0):
                 color = curses.color_pair(2)
             stdscr.addstr(0, i, char, color)
 
+def load_text():        # Turning all our sentances from our file into a list then picking a sentance at random to use in our game
+    with open("sentances.txt", "r") as f:
+        lines = f.readlines()
+        return random.choice(lines).strip()
+
 def wpm_test(stdscr):       # This is going to be our game concept where we get the user to type our given sentance
-    target_text = "This is the test run for the game please try it out!"
+    target_text = load_text()
     current_text = []
     wpm = 0
     start_time = time.time()        # This will start timing whenever the while loop starts looping until its ends
