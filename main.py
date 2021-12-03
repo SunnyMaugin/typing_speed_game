@@ -12,7 +12,11 @@ def display_text(stdscr, target, current, wpm=0):
         stdscr.addstr(target)
     
         for i, char in enumerate(current):       # This is going to get each element in the list as well as its position then overlay it with the target text, we are also setting our current text to green
-            stdscr.addstr(0, i, char, curses.color_pair(1))
+            correct_char = target[i]        # This just means if the letter typed is equal to the premade sentance letter then make it green if its not equal/same then make it red
+            color = curses.color_pair(1)
+            if char != correct_char:        
+                color = curses.color_pair(2)
+            stdscr.addstr(0, i, char, color)
 
 def wpm_test(stdscr):       # This is going to be our game concept where we get the user to type our given sentance
     target_text = "This is the test run for the game please try it out!"
